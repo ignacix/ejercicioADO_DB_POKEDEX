@@ -38,5 +38,7 @@ namespace PokemonProject
 
             pictureBox1.Load(seleccion.UrlImagen);
         }
+
+        
     }
 }

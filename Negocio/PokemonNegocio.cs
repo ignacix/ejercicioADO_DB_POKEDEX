@@ -13,19 +13,14 @@ namespace Negocio
         public List<Pokemon> listar()
         {
             List<Pokemon> lista = new List<Pokemon>();
-            SqlConnection con = new SqlConnection();
-            SqlCommand cmd = new SqlCommand();
             SqlDataReader dr;
+            AccesoDatos acceso = new AccesoDatos();
 
             try
             {
-                con.ConnectionString = "server=.\\SQLEXPRESS; database=POKEDEX_DB ; integrated security=true";
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.CommandText = "select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad from POKEMONS P, ELEMENTOS E, ELEMENTOS D where P.IdTipo = E.Id and P.IdDebilidad = D.Id";
-                cmd.Connection = con;
-                
-                con.Open();
-                dr = cmd.ExecuteReader();
+                acceso.SetearConsulta("select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad from POKEMONS P, ELEMENTOS E, ELEMENTOS D where P.IdTipo = E.Id and P.IdDebilidad = D.Id");
+                acceso.RealizarConsulta();
+                dr = acceso.Reader;
                 while (dr.Read())
                 {
                     Pokemon aux = new Pokemon();
@@ -46,12 +41,10 @@ namespace Negocio
             }
             finally
             {
-                con.Close(); 
+                acceso.CerrarConexion();  
             }
         }
-        
-
-        
+              
 
 
     }
