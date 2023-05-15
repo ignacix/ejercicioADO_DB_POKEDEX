@@ -27,7 +27,7 @@ namespace Negocio
             cmd.CommandText = query;
         }
 
-        public void RealizarConsulta()
+        public void RealizarLectura()
         {
             cmd.Connection = con;
             try
@@ -37,6 +37,21 @@ namespace Negocio
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        public void RealizarConsulta()
+        {
+            cmd.Connection = con;
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

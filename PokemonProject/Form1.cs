@@ -28,17 +28,34 @@ namespace PokemonProject
             lista = PokemonNegocio.listar();
             dataGridView1.DataSource = lista;
             dataGridView1.Columns["UrlImagen"].Visible = false;
-            pictureBox1.Load(lista[0].UrlImagen);
+            cargarImagen(lista[0]);            
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;            
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             Pokemon seleccion = (Pokemon)dataGridView1.CurrentRow.DataBoundItem;
-
-            pictureBox1.Load(seleccion.UrlImagen);
+            cargarImagen(seleccion);
+            
         }
 
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmAltaPokemon alta = new frmAltaPokemon();
+            alta.ShowDialog();
+        }
+
+        private void cargarImagen(Pokemon poke)
+        {
+            try
+            {
+                pictureBox1.Load(poke.UrlImagen);                
+            }
+            catch (Exception)
+            {
+
+                pictureBox1.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRacb74og5L8lqvlWiiECKiAgCf5KMDVvqidU9NTcUmYw&s");
+            }
+        }
     }
 }

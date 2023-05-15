@@ -19,7 +19,7 @@ namespace Negocio
             try
             {
                 acceso.SetearConsulta("select Numero, Nombre, P.Descripcion, UrlImagen, E.Descripcion as Tipo, D.Descripcion as Debilidad from POKEMONS P, ELEMENTOS E, ELEMENTOS D where P.IdTipo = E.Id and P.IdDebilidad = D.Id");
-                acceso.RealizarConsulta();
+                acceso.RealizarLectura();
                 dr = acceso.Reader;
                 while (dr.Read())
                 {
@@ -43,6 +43,14 @@ namespace Negocio
             {
                 acceso.CerrarConexion();  
             }
+        }
+
+        public void agregar(Pokemon poke)
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+            accesoDatos.SetearConsulta($"insert into POKEMONS (Numero, Nombre, Descripcion ) values ({poke.Numero}, '{poke.Nombre}', '{poke.Descripcion}')");
+            accesoDatos.RealizarConsulta();
+            accesoDatos.CerrarConexion();
         }
               
 
