@@ -14,35 +14,108 @@ namespace PokemonProject
 {
     public partial class frmAltaPokemon : Form
     {
+        private Pokemon pokemon = null;
         public frmAltaPokemon()
         {
             InitializeComponent();
+            Text = "Alta Pokemon";
+            button1.Text = "Cargar";
+            CargarImagen();
+        }
+        public frmAltaPokemon(Pokemon pokemon)
+        {
+            InitializeComponent();
+            this.pokemon = pokemon;
+            Text = "Modificar Pokemon";
+            button1.Text = "Actualizar";
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            Pokemon pokemon = new Pokemon();
+        {        
             PokemonNegocio negocio = new PokemonNegocio();
 
             try
-            {
+            {                
                 pokemon.Numero = int.Parse(txbNumero.Text);
                 pokemon.Nombre = txbNombre.Text;
                 pokemon.Descripcion = txbDescripción.Text;
+                pokemon.UrlImagen = txbUrl.Text;
+                pokemon.Tipo = (Elemento)cbxTipo.SelectedItem;
+                pokemon.Debilidad = (Elemento)cbxDebilidad.SelectedItem;
 
-                negocio.agregar(pokemon);
-                MessageBox.Show("Pokemon Agregado Correctamente");
+
+                if (pokemon.Id == 0)
+                {
+                    negocio.agregar(pokemon);
+                    MessageBox.Show("Pokemon se Agregó Correctamente");
+                }
+                else
+                {
+                    negocio.Modificar(pokemon);
+                    MessageBox.Show("Pokemon Modificado Correctamente");
+                }
+
+
+
+                this.Close();
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show( ex.Message);
+            }                                       
+        }
+
+        private void frmAltaPokemon_Load(object sender, EventArgs e)
+        {
+            ElementoNegocio elementoNegocio = new ElementoNegocio();
+
+            try
+            {
+                cbxTipo.DataSource = elementoNegocio.listar();
+                cbxTipo.ValueMember = "Id";
+                cbxTipo.DisplayMember = "Descripcion";                
+                cbxDebilidad.DataSource = elementoNegocio.listar();
+                cbxDebilidad.ValueMember = "Id";
+                cbxDebilidad.DisplayMember = "Descripcion";
+
+                if (pokemon != null)
+                {
+                    txbNumero.Text = pokemon.Numero.ToString();
+                    txbNombre.Text = pokemon.Nombre;
+                    txbDescripción.Text = pokemon.Descripcion;
+                    txbUrl.Text = pokemon.UrlImagen;
+                    CargarImagen();
+                    cbxTipo.SelectedValue = (int)pokemon.Tipo.Id;
+                    cbxDebilidad.SelectedValue = (int)pokemon.Debilidad.Id;
+
+                }
+                else
+                {
+                    pokemon = new Pokemon();
+                }
             }
-           
-                
-            
+            catch (Exception)
+            {
+                throw;
+            }                      
+        }
 
+        private void txbUrl_Leave(object sender, EventArgs e)
+        {
+            CargarImagen();
+        }
 
+        private void CargarImagen()
+        {
+            try
+            {
+                pictureBoxAlta.Load(txbUrl.Text);
+            }
+            catch (Exception)
+            {
+
+                pictureBoxAlta.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRacb74og5L8lqvlWiiECKiAgCf5KMDVvqidU9NTcUmYw&s");
+            }
         }
     }
 }

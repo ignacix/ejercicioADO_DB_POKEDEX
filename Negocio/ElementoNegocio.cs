@@ -17,7 +17,7 @@ namespace Negocio
             try
             {
                 acceso.SetearConsulta("select Id, Descripcion from ELEMENTOS");
-                acceso.RealizarConsulta();
+                acceso.RealizarLectura();
 
                 
                 while (acceso.Reader.Read())
