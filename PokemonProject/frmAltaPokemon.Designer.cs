@@ -42,6 +42,7 @@
             this.pictureBoxAlta = new System.Windows.Forms.PictureBox();
             this.txbUrl = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlta)).BeginInit();
             this.SuspendLayout();
             // 
@@ -141,7 +142,7 @@
             // 
             // pictureBoxAlta
             // 
-            this.pictureBoxAlta.Location = new System.Drawing.Point(336, 46);
+            this.pictureBoxAlta.Location = new System.Drawing.Point(347, 53);
             this.pictureBoxAlta.Name = "pictureBoxAlta";
             this.pictureBoxAlta.Size = new System.Drawing.Size(212, 180);
             this.pictureBoxAlta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -165,11 +166,23 @@
             this.label6.TabIndex = 3;
             this.label6.Text = "Descripción:";
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(301, 142);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(31, 31);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "+";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // frmAltaPokemon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(580, 308);
+            this.ClientSize = new System.Drawing.Size(576, 308);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.txbUrl);
             this.Controls.Add(this.pictureBoxAlta);
             this.Controls.Add(this.cbxDebilidad);
@@ -209,5 +222,6 @@
         private System.Windows.Forms.PictureBox pictureBoxAlta;
         private System.Windows.Forms.TextBox txbUrl;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button2;
     }
 }

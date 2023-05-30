@@ -9,12 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Configuration;
 
 namespace PokemonProject
 {
     public partial class frmAltaPokemon : Form
     {
         private Pokemon pokemon = null;
+        private OpenFileDialog archivo = null;
         public frmAltaPokemon()
         {
             InitializeComponent();
@@ -55,6 +58,10 @@ namespace PokemonProject
                     MessageBox.Show("Pokemon Modificado Correctamente");
                 }
 
+                if (archivo != null && !txbUrl.Text.ToUpper().Contains("HTPP"))
+                {
+                    File.Copy(archivo.FileName, ConfigurationManager.AppSettings["images-folder"] + archivo.SafeFileName);
+                }
 
 
                 this.Close();
@@ -115,6 +122,18 @@ namespace PokemonProject
             {
 
                 pictureBoxAlta.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRacb74og5L8lqvlWiiECKiAgCf5KMDVvqidU9NTcUmYw&s");
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "jpg|*.jpg |png|*.png";
+            if (archivo.ShowDialog()==DialogResult.OK )
+            {
+
+                txbUrl.Text = archivo.FileName;
+                CargarImagen();                
             }
         }
     }
